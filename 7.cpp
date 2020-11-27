@@ -163,6 +163,73 @@ int main(void)
 
 
 
+	// ориентированный граф
+	printf("\n\nориентированный граф :\n");
+	for (i = 0; i < N; i++) {
+		for (j = 0; j < N; j++) {
+			A[i][j] = rand() % 7;
+			if (A[i][j]>3) {
+				A[i][j] = 0;
+			}
+			if (i == j) {
+				A[i][j] = 0;
+			}
+		}
+	}
+	for (i = 0; i < N; i++) {
+		for (j = 0; j < N; j++) {
+			printf("%d  ", A[i][j]);
+		}
+		printf("\n");
+	}
+	for (i = 0; i < N; i++) {
+		M[i] = 1000;
+	}
+	printf("\n\nПоиск расстояний в ориентированном графе :\n");
+	for (i = 0; i < N; i++) {
+		BFS(A, M, i, N);
+		printf("\n");
+		for (int l = 0; l < N; l++) {
+			printf("%d ", M[l]);
+		}
+		for (int l = 0; l < N; l++) {
+			M[l] = 1000;
+		}
+	}
+	printf("\n\n Список :\n");
+
+	p_begin = (tNode**)malloc(N * sizeof(tNode*));
+
+	for (i = 0; i < N; i++) {
+		int k = 0;
+		for (j = 0; j < N; j++) {
+			if (A[i][j] != 0)
+				k++;
+
+		}
+		p_begin[i] = create_list(N, k, A, i);
+		print_list(p_begin[i]);
+		printf("\n");
+	}
+
+	printf("\n\nПоиск расстояний списками:\n");
+
+
+
+	for (i = 0; i < N; i++) {
+		M[i] = 1000;
+	}
+	for (i = 0; i < N; i++) {
+		BFSSPISOK(i, M, A);
+		printf("\n");
+		for (int l = 0; l < N; l++) {
+			printf("%d ", M[l]);
+		}
+		for (int l = 0; l < N; l++) {
+			M[l] = 1000;
+		}
+	}
+
 	free(A);
 	free(M);
 	free(p_begin);
